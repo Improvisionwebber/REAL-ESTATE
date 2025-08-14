@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Tables{% endblock title %}
+
+{% block body %}
+  <a href="{% url 'manage' %}" class="text-decoration-none text-dark mb-3 d-inline-block">
+    <i class="bi bi-arrow-left"></i> Back
+  </a>
+<center>
+<h1>Messages Sent</h1>
+<table class="table mt-3">
+  <thead>
+    <tr>
+      <th scope="col">NAME </th>
+      <th scope="col">EMAIL</th>
+      <th scope="col">TEL:</th>
+      <th scope="col">MESSAGE:</th>
+      <th scope="col">TIME</th>
+    </tr>
+  </thead>
+{% for contactsubmission in tables  %}
+  <tbody>
+    <tr>
+      <th scope="row"> {{ contactsubmission.name }}</th>
+      <td>{{ contactsubmission.email }}</td>
+      <td>{{ contactsubmission.phone }}</td>
+      <td>{{ contactsubmission.message }}</td>
+      <td>{{ contactsubmission.submitted_at }}</td>
+    <td><form action="{% url "contactsubmission_delete" contactsubmission.id %}" method="post">{% csrf_token %} <button class="btn btn-danger col" >Delete</button></form> </td>
+  </tbody>
+ {% endfor %} 
+</table>
+</center>
+{% endblock body %}

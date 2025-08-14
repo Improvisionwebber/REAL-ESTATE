@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Home Page{% endblock title %}
+{% load static %}
+
+{% block body %}
+<center>
+<div class="container bg-dark m-4 p-4 mt-4" style=" height: 450px; ">
+    <h1 class=" text-light text-start" style=" margin-top: 150px; ">Pangaea Dimensions</h1>
+    <p class="text-light text-start">Sustainable Real Estate Development</p>
+    <div class="text-start">
+    <button class="btn btn-success text-light  "><a href="{% url "services" %}" class="text-decoration-none text-light">View Services</a></button>
+    </div>
+</div>
+</center>
+<div class="container">
+<div class="row">
+    <div class="col-md-6 "style=" margin-top: 150px; ">
+        <h3 class="text-success">SUSTAINABLE REAL ESTATE DEVELOPMENT</h3>
+        <h1 class="border border-dark "> Building green for a better tomorrow</h1>
+        <p>Pangaea Development specializes in the development of sustainable built environments that incorprate green building elements to create a healthier future for all.</p>
+        <p><a href="{% url "contact" %}">Get in touch</a></p>
+    </div>
+    <div class="col-md-6 mb-4">
+        <img src="{% static "images/img11.jpg" %}" height="500" width="500">
+    </div>
+</div>
+</div>
+{% endblock body %}

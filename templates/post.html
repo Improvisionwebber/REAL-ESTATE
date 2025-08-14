@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load widget_tweaks %}
+{% block title %}POST PAGE{% endblock title %}
+ {% block body %}
+ <div class="container">
+    <a href="{% url 'manage' %}" class="text-decoration-none text-dark mb-3 d-inline-block">
+    <i class="bi bi-arrow-left"></i> Back
+  </a>
+    <div class="formwrap">
+        <h1>Add a New Service</h1>
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="mb-1 p-4  rounded-4">
+            <label>Title</label>
+            {{ form.title|add_class:"form-control" }}
+            </div>
+            <div class="mb-1 p-4  rounded-4">
+            <label>Body</label>
+            {{ form.body|add_class:"form-control" }}
+            </div>
+            <div class="mb-1 p-4  rounded-4">
+            <label>Image</label>
+            {{ form.image|add_class:"form-control" }}
+            </div>
+           <center> <button type="submit" class="btn btn-success mb-3 " style=" width: 200px; ">ADD</button></center>
+        </form>
+    </div>
+</div>
+ {% endblock body %}

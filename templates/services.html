@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Services Page{% endblock title %}
+{% load static %}
+
+{% block body %}
+<div class="container">
+<h5 class="text-success mt-4" >OUR SERVICES</h5>
+<h1>Creating sustainable spaces</h1>
+<p>Transforming landscopes into eco-conscious havens with sustainable designs and <br>green building practices</p>
+</div>
+<div class="container">
+    <div class="row g-4">
+        {% for post in posts %}
+        <div class="col-md-4">
+            <div class="card h-100 " style="width: 18rem;">
+                    {% if post.image %}
+                        <img src="{{ post.image.url }}" class="card-img-top post-img" alt="Post Image">
+                    {% else %}
+                    <p> No Image available</p>
+                    {% endif %}            <div class="card-body">
+                <h5 class="card-title">{{ post.title }} <a href="{% url "single" post.pk %}">></a> </h5>
+                <p class="card-text">{{ post.body|truncatechars:20}}</p>
+            </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>  
+</div>
+
+
+{% endblock body %}
