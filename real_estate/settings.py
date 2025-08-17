@@ -9,7 +9,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 SECRET_KEY = 'django-insecure-uz(k67l2)(30=6=xd*=7vd@z(_!vd05@j@%6=a##$^17bo=7n@'
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["*"]  # allow all, or put your Render domain here
 
