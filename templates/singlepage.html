@@ -1,77 +1,114 @@
 {% extends "base.html" %}
 {% block body %}
-    {% load static %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-8">
-                <div class="combo">
-                    <h1>{{ post.title }}</h1>
-                    {% if post.image_url %}
-                        <img src="{{ post.image_url }}" class="img-fluid mb-3">
-                    {% endif %}
-                    <p>
-                        {{ post.body }}    
-                    </p>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="side-bar p-3 rounded-3">
-                    <h6>Recent Posts</h6>
-                    <div class="recent-posts">
-                        {% for recent in recent_posts %}
+{% load static %}
+
+<div class="container my-5">
+    <div class="row g-5">
+        <!-- Main Content -->
+        <div class="col-lg-8">
+            <article class="p-4 rounded-4 shadow-lg bg-white animate__animated animate__fadeIn">
+                <h1 class="fw-bold mb-3">{{ post.title }}</h1>
+                {% if post.image_url %}
+                    <div class="post-img-container mb-4">
+                        <img src="{{ post.image_url }}" class="img-fluid rounded-4 shadow-sm" alt="{{ post.title }}">
+                    </div>
+                {% endif %}
+                <p class="fs-5 text-muted" style="line-height: 1.8;">
+                    {{ post.body }}
+                </p>
+            </article>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+            <aside class="side-bar p-4 rounded-4 shadow-sm bg-light animate__animated animate__fadeInRight">
+                <h5 class="fw-bold text-success mb-3">Recent Posts</h5>
+                <div class="recent-posts">
+                    {% for recent in recent_posts %}
+                        <div class="recent-item d-flex align-items-start gap-3 mb-3">
                             {% if recent.image_url %}
-                                <a href="{% url 'single' recent.pk %}">
-                                    <img src="{{ recent.image_url }}" class="img-fluid mb-1 rounded-3">
+                                <a href="{% url 'single' recent.pk %}" class="flex-shrink-0">
+                                    <img src="{{ recent.image_url }}" class="recent-thumb rounded-3" alt="{{ recent.title }}">
                                 </a>
                             {% endif %}
-                            <p class="heads">{{ recent.title }}</p>
-                        {% endfor %}
-                    </div>
+                            <div>
+                                <a href="{% url 'single' recent.pk %}" class="recent-title">
+                                    {{ recent.title }}
+                                </a>
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
-            </div>
+            </aside>
         </div>
-    </div> 
+    </div>
+</div>
 
+<!-- Styling -->
 <style>
-/* Container for recent posts */
-.recent-posts {
-    display: flex;
-    flex-direction: column;
-    gap: 15px; /* spacing between posts */
-    padding: 10px;
-    background-color: #f8f9fa; /* light grey background */
-    border-radius: 12px;
-    box-shadow: 0 20px 20px rgba(0,0,0,0.05);
-}
-
-/* Images inside recent posts */
-.recent-posts a img {
+/* Post image */
+.post-img-container img {
     width: 100%;
     height: auto;
     object-fit: cover;
-    border-radius: 10px;
+    transition: transform .5s ease;
+}
+.post-img-container img:hover {
+    transform: scale(1.03);
+}
+
+/* Sidebar Recent Posts */
+.recent-item {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 20px 20px rgba(0,0,0,0.05);
+    border-bottom: 1px solid #eaeaea;
+    padding-bottom: 10px;
+}
+.recent-item:last-child {
+    border-bottom: none;
+}
+.recent-item:hover {
+    transform: translateX(5px);
 }
 
-.recent-posts a img:hover {
+/* Thumbnails */
+.recent-thumb {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+}
+.recent-thumb:hover {
     transform: scale(1.05);
-    box-shadow: 0 6px 15px rgba(0,0,0,0.15);
 }
 
-/* Title of each post */
-.recent-posts .heads {
-    font-size: 1rem;
+/* Titles */
+.recent-title {
+    font-size: 0.95rem;
     font-weight: 600;
     color: #333;
-    margin: 5px 0 0 0;
+    text-decoration: none;
     transition: color 0.3s ease;
 }
+.recent-title:hover {
+    color: #0d6efd;
+}
 
-.recent-posts .heads:hover {
-    color: #0d6efd; /* Bootstrap primary blue on hover */
-    cursor: pointer;
+/* Responsive adjustments */
+@media (max-width: 767px) {
+    article {
+        padding: 1.5rem;
+    }
+    .recent-thumb {
+        width: 60px;
+        height: 60px;
+    }
+    .recent-title {
+        font-size: 0.9rem;
+    }
 }
 </style>
 
+<!-- Animate.css -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
 {% endblock %}
