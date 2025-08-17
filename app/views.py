@@ -61,12 +61,12 @@ def register(request):
         form = UserCreationForm()
 
     return render(request, "register.html", {'form': form})
-
 import requests
+from django.conf import settings
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from .forms import PostForm
-from .models import Post  # make sure your Post model has an image_url field
+from .models import Post
 
 IMGBB_API_KEY = "c346e6e29bbc0340846deb957f6d510a"
 
@@ -77,29 +77,41 @@ def add_post(request):
         if form.is_valid():
             post = form.save(commit=False)
 
-            # Upload to imgbb if an image was uploaded
-            if request.FILES.get("image"):  # make sure field name is 'image'
-                image_file = request.FILES["image"]
+            # Handle image upload if present
+            if 'image' in request.FILES:
+                image_file = request.FILES['image']
 
-                upload_url = "https://api.imgbb.com/1/upload"
-                response = requests.post(
-                    upload_url,
-                    data={"key": IMGBB_API_KEY},
-                    files={"image": image_file.read()}
-                )
-
-                if response.status_code == 200:
+                try:
+                    response = requests.post(
+                        "https://api.imgbb.com/1/upload",
+                        params={"key": IMGBB_API_KEY},
+                        files={"image": image_file.read()}
+                    )
                     data = response.json()
-                    post.image_url = data["data"]["url"]  # save imgbb image link
-                else:
-                    print("Error uploading to imgbb:", response.text)
-                    post.image_url = None  # fallback
+
+                    if response.status_code == 200 and data.get("success"):
+                        post.image_url = data["data"]["url"]  # Save imgbb URL
+                    else:
+                        print("Upload failed:", data)
+                        return render(request, "post.html", {
+                            "form": form,
+                            "error": "Image upload to imgbb failed."
+                        })
+
+                except Exception as e:
+                    print("Exception while uploading to imgbb:", e)
+                    return render(request, "post.html", {
+                        "form": form,
+                        "error": "Error uploading image."
+                    })
 
             post.save()
             return redirect("services")
     else:
         form = PostForm()
+    
     return render(request, "post.html", {"form": form})
+
 
 
 def contact(request):
