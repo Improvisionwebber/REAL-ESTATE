@@ -1,70 +1,76 @@
 {% extends "base.html" %}
 {% block title %}CONTACT US{% endblock title %}
-{% block body %}
-<form method="post">
-    {% csrf_token %}
-    <div class="container">
-        <div class="row">
-            <div class="col-md-6">
-                <h6 class="text-success">GET IN TOUCH</h6>
-                <h1>Lets build a sustainable future together</h1>
-                <p>Reach out to us today to start your journey towards a greener and more sustainable tomorrow</p>
 
+{% block body %}
+<div class="container py-5">
+    <div class="row g-5">
+        <!-- Contact Form -->
+        <div class="col-lg-6">
+            <h6 class="text-success fw-semibold">GET IN TOUCH</h6>
+            <h1 class="fw-bold mb-3">Let’s build a sustainable future together</h1>
+            <p class="text-muted">
+                Reach out to us today to start your journey towards a greener and more sustainable tomorrow.
+            </p>
+
+            <form method="post" class="mt-4">
+                {% csrf_token %}
                 <div class="mb-3">
                     <label for="id_name" class="form-label">Name</label>
-                    <input type="text" class="form-control" id="id_name" name="name" placeholder="Jane Smith" required>
+                    <input type="text" class="form-control shadow-sm" id="id_name" name="name" placeholder="Jane Smith" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="id_email" class="form-label">Email address</label>
-                    <input type="email" class="form-control" id="id_email" name="email" placeholder="name@example.com" required>
+                    <input type="email" class="form-control shadow-sm" id="id_email" name="email" placeholder="name@example.com" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="id_phone" class="form-label">Phone number</label>
-                    <input type="tel" class="form-control" id="id_phone" name="phone" placeholder="555-555-5555" required>
+                    <input type="tel" class="form-control shadow-sm" id="id_phone" name="phone" placeholder="555-555-5555" required>
                 </div>
 
                 <div class="mb-3">
                     <label for="id_message" class="form-label">Message</label>
-                    <textarea class="form-control" id="id_message" name="message" rows="3" placeholder="Write your message..." required></textarea>
+                    <textarea class="form-control shadow-sm" id="id_message" name="message" rows="4" placeholder="Write your message..." required></textarea>
                 </div>
 
-                <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="termsCheck" required>
-                    <label class="form-check-label" for="termsCheck">
+                <div class="form-check my-3">
+                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                    <label class="form-check-label small text-muted" for="termsCheck">
                         I allow this website to store my submission so they can respond to my inquiry
                     </label>
                 </div>
 
-                <button type="submit" class="btn btn-success mt-3 text-light mb-3">Submit</button>
-            </div>
+                <button type="submit" class="btn btn-success px-4 py-2">Submit</button>
 
-            <div class="col-md-6 bg-light">
-                <center>
-                    <div class="container mt-4 bg-dark rounded-3" style="max-width: 300px; margin-top: 850px;">
-                        <h6 class="text-light">We are unable to show a map</h6>
-                        <p class="text-light">We are unable to show a map <br> because the location is not full<br> or incorrect. Please check your address<br> details and try again.</p>
-                        <p class="text-light">Note: this message will not show on <br> your published website</p>
-                    </div>
-                </center>
-                <h6>Get in touch</h6>
-                <p class="text-success">profjabb@yahoo.com</p>
-                <h6>Location</h6>
-                <p>Waukesha, WI US</p>
-                <h6>Hours</h6>
-                <p>Monday 9:00am - 10:00pm</p>
-                <p>Tuesday 9:00am - 10:00pm</p>
-                <p>Wednesday 9:00am - 10:00pm</p>
-                <p>Thursday 9:00am - 10:00pm</p>
-                <p>Friday 9:00am - 10:00pm</p>
+                {% if success %}
+                    <p class="text-success mt-3">✅ Thanks! We received your message.</p>
+                {% endif %}
+            </form>
+        </div>
+
+        <!-- Contact Info -->
+        <div class="col-lg-6">
+            <div class="bg-dark text-light p-4 rounded-4 shadow-lg h-100 d-flex flex-column justify-content-between">
+                <div>
+                    <h4 class="fw-bold mb-3">Contact Information</h4>
+                    <p><strong>Email:</strong> profjabb@yahoo.com</p>
+                    <p><strong>Location:</strong> Waukesha, WI US</p>
+                </div>
+
+                <div>
+                    <h5 class="fw-bold mt-4">Business Hours</h5>
+                    <ul class="list-unstyled text-light">
+                        <li>Monday – Friday: 9:00am - 10:00pm</li>
+                        <li>Saturday – Sunday: Closed</li>
+                    </ul>
+                </div>
+
+                <div class="mt-4">
+                    <small class="text-muted">*Map integration coming soon</small>
+                </div>
             </div>
         </div>
     </div>
-
-    {% if success %}
-        <p class="text-success">Thanks! We received your message.</p>
-    {% endif %}
-</form>
-
+</div>
 {% endblock body %}

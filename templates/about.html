@@ -3,36 +3,48 @@
 {% load static %}
 
 {% block body %}
-<div class="container">
-    <div class="row g-4">
-        <div class="col-md-6">
-            <img src="{% static "images/img3.jpg" %}" class="img-fluid rounded-4 w-100" style="max-height: 400px;">
-        </div>
-        <div class="col-md-6 bg-dark rounded-3 d-flex flex-column justify-content-center p-4">
-            <h1 class="text-light fw-bold">Quality and <br> Reliable Property <br> Experience</h1>
-            <p class="text-light fs-6"> We are focused on accurasy in finding properties and helping buyers to choose affordable properties with high luxury</p>
-        </div>
-    </div>
-</div>
-<div class="container py-5">
+<div class="container my-5">
     <div class="row g-4 align-items-center">
-        <!-- Heading Column -->
-        <div class="col-md-4 text-md-start text-center">
-            <h1 class="fw-bold display-5 text-primary">Welcome to <br> PANGAEA DIMENSIONS!</h1>
+        <!-- Image Section -->
+        <div class="col-md-6">
+            <img src="{% static 'images/img3.jpg' %}" 
+                 class="img-fluid rounded-4 shadow-lg w-100" 
+                 style="max-height: 420px; object-fit: cover;">
         </div>
-        <!-- Paragraph Column -->
-        <div class="col-md-8">
-            <p class="fs-6 text-muted lh-lg">
-                At <span class="fw-semibold text-dark">PANGAEA DIMENSIONS</span>, we are committed to transforming the way you find and invest in properties. 
-                Whether you're looking for your dream home, a luxury apartment, or a strategic investment, 
-                our team of experts ensures a seamless experience from start to finish. 
-                We combine local market knowledge with cutting-edge technology to help you make informed decisions, 
-                providing reliable guidance and exceptional service every step of the way.
+        <!-- Text Section -->
+        <div class="col-md-6 bg-dark rounded-4 p-5 text-light">
+            <h1 class="fw-bold mb-3">Quality & <br> Reliable Property <br> Experience</h1>
+            <p class="fs-6 lh-lg">
+                We are focused on <span class="fw-semibold text-success">accuracy</span> in finding properties 
+                and helping buyers choose affordable options with premium luxury. 
+                Your satisfaction is our priority.
             </p>
         </div>
     </div>
 </div>
 
-
-
+<!-- Welcome Section -->
+<div class="container py-5">
+    <div class="row g-4 align-items-center">
+        <!-- Heading Column -->
+        <div class="col-md-4 text-md-start text-center">
+            <h1 class="fw-bold display-5 text-primary mb-3">
+                Welcome to <br> PANGAEA DIMENSIONS!
+            </h1>
+            <div class="border-top border-3 border-success w-50 mx-md-0 mx-auto"></div>
+        </div>
+        <!-- Paragraph Column -->
+        <div class="col-md-8">
+            <p class="fs-5 text-muted lh-lg">
+                At <span class="fw-semibold text-dark">PANGAEA DIMENSIONS</span>, we are committed to 
+                transforming the way you <span class="text-success">find and invest</span> in properties. 
+                Whether you're searching for your dream home, a luxury apartment, or a strategic investment, 
+                our expert team ensures a seamless experience from start to finish. 
+                We combine <span class="fw-semibold text-dark">local market knowledge</span> with 
+                <span class="text-success">cutting-edge technology</span> to guide you with confidence, 
+                delivering reliable insights and exceptional service every step of the way.
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock body %}
