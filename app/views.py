@@ -62,16 +62,44 @@ def register(request):
 
     return render(request, "register.html", {'form': form})
 
+import requests
+from django.shortcuts import render, redirect
+from django.contrib.auth.decorators import login_required
+from .forms import PostForm
+from .models import Post  # make sure your Post model has an image_url field
+
+IMGBB_API_KEY = "c346e6e29bbc0340846deb957f6d510a"
+
 @login_required(login_url='login')
 def add_post(request):
     if request.method == "POST":
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
-            form.save()
-            return redirect('services')
+            post = form.save(commit=False)
+
+            # Upload to imgbb if an image was uploaded
+            if request.FILES.get("image"):  # make sure field name is 'image'
+                image_file = request.FILES["image"]
+
+                upload_url = "https://api.imgbb.com/1/upload"
+                response = requests.post(
+                    upload_url,
+                    data={"key": IMGBB_API_KEY},
+                    files={"image": image_file.read()}
+                )
+
+                if response.status_code == 200:
+                    data = response.json()
+                    post.image_url = data["data"]["url"]  # save imgbb image link
+                else:
+                    print("Error uploading to imgbb:", response.text)
+                    post.image_url = None  # fallback
+
+            post.save()
+            return redirect("services")
     else:
         form = PostForm()
-    return render(request, 'post.html', {'form': form})
+    return render(request, "post.html", {"form": form})
 
 
 def contact(request):

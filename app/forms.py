@@ -4,7 +4,7 @@ from .models import ContactSubmission
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ['title', 'body', 'image']
+        fields = ['title', 'body', 'image_url']
 
 
 class ContactForm(forms.ModelForm):
